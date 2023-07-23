@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import {
   AiFillGithub,
@@ -9,22 +9,22 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { useState } from "react";
-
 import { useForm } from "react-hook-form";
 import { signInWithFacebook, signInWithGithub, signInWithGoogle } from "../config/firebase";
 
 // schema fro data
 const schema = yup.object().shape({
   email: yup.string().email().required("this field is required"),
+  username: yup.string().required(" username is required"),
   password: yup
     .string()
     .min(4, "password must have minimum 4 characters")
     .required("password is required"),
 });
 
-const Login = () => {
-  // form handling
+const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+// setIsSubmitting(false)
   const {
     handleSubmit,
     register,
@@ -33,65 +33,76 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  // Step 1: Create a state variable to track password visibility
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Step 2: Toggle password visibility when the eye icon is clicked
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleInputChange = () => {
     clearErrors(); // Clear all errors when the user interacts with the inputs
   };
   if (errors) {
-    console.log(errors);
   }
   const handleSubmission = (data) => {
-    setIsSubmitting(true)
     console.log(data);
+    setIsSubmitting(true);
   };
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-
-
-  //login with platform
 
 //   sign up with difference platform
 const handleWithGoogle=async()=>{
-  const ress=await signInWithGoogle()
-  console.log(ress);
- 
+    const ress=await signInWithGoogle()
+    console.log(ress);
+   
 }
 const handleWithFacebook=async()=>{
-  const ress=await signInWithFacebook()
-  console.log(ress);
- 
+    const ress=await signInWithFacebook()
+    console.log(ress);
+   
 }
 const handleWithGithub=async()=>{
-  const ress=await signInWithGithub()
-  console.log(ress);
- 
+    const ress=await signInWithGithub()
+    console.log(ress);
+   
 }
   return (
     <div>
       <div className="bg-[#D9D9D9]  flex justify-center items-center py-16">
-        <div className="bg-white flex    px-16 py-[6.2em] gap-5   rounded-lg border-2  flex-col">
-          <h1 className="text-2xl  font-medium">Log in</h1>
+        <div className="bg-white flex    px-16 py-[4.8em] gap-5   rounded-lg border-2  flex-col">
+          <h1 className="text-2xl  font-medium">Sign up</h1>
           <form
             className="flex flex-col gap-5"
             onSubmit={handleSubmit(handleSubmission)}
           >
             <div className="flex flex-col">
               <label htmlFor="email" className="text-[#666666]">
-                {" "}
-                Email address or user name
+                Email address
               </label>
               <input
                 type="email"
+                required
                 id="email"
                 className={`border-2 rounded-lg h-12 focus:outline-none px-5 ${
                   errors?.email?.message ? "border-red-500" : ""
                 }`}
                 {...register("email")}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="username" className="text-[#666666]">
+                username
+              </label>
+              <input
+                type="text"
+                id="usernmae"
+                className={`border-2 rounded-lg h-12 focus:outline-none px-5 ${
+                  errors?.username?.message ? "border-red-500" : ""
+                }`}
+                {...register("username")}
                 onChange={handleInputChange}
                 required
               />
@@ -134,26 +145,24 @@ const handleWithGithub=async()=>{
             <div className="flex flex-col gap-3">
               <p>
                 By continuing, you agree to the{" "}
-                <span className="underline cursor-pointer">
+                <span className="underline">
                   Terms of use and Privacy Policy.
                 </span>
               </p>
               <input
                 type="submit"
-                value="Log in"
-                className={` text-white w-full rounded-3xl h-12 font-bold  hover:cursor-pointer  ${isSubmitting ?"bg-[#222222]" :"bg-[#C4C4C4]"}`}
+                value="Sign up"
+                className={` text-white w-full rounded-3xl h-12 font-bold  hover:cursor-pointer  ${
+                  isSubmitting ? "bg-[#222222]" : "bg-[#C4C4C4]"
+                }`}
                 disabled={isSubmitting}
               />
             </div>
-            <div className="flex flex-1 justify-center items-center">
-              <p className="underline font-bold hover:cursor-pointer">
-                Forget your password
-              </p>
-            </div>
+
             <div className="flex flex-row gap-3 justify-center items-center">
-              <p>Don’t have an acount? </p>
-              <Link to="/signUp" className="underline font-bold">
-                Sign up{" "}
+              <p>Already have an account? </p>
+              <Link to="/login" className="underline font-bold">
+                Log in
               </Link>
             </div>
             <div>
@@ -192,4 +201,4 @@ const handleWithGithub=async()=>{
   );
 };
 
-export default Login;
+export default SignUp;
