@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { loggedActions } from "../store/reducers/LoggedInSlice";
+import { loggedActions } from "../store/slices/LoggedInSlice";
 
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);

@@ -1,9 +1,11 @@
 import About from "../components/profille/About";
+import Certificate from "../components/profille/Certificate";
 import Education from "../components/profille/Education";
 import Experience from "../components/profille/Experience";
 import Invetions from "../components/profille/Invetions";
 import Patents from "../components/profille/Patents";
 import WorkHistory from "../components/profille/WorkHistory";
+import CountrySearch from "../components/profille/draft";
 import UserData from "../components/profille/userData";
 
 function Profile() {
@@ -31,8 +33,11 @@ function Profile() {
         <Experience />
       </div>
       <div>
-        <Experience />
+        <Certificate/>
       </div>
+      {/* <div>
+        <CountrySearch/>
+      </div> */}
     </div>
   );
 }
