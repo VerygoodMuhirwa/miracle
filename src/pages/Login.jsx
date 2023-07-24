@@ -12,6 +12,7 @@ import { useState } from "react";
 
 import { useForm } from "react-hook-form";
 import { signInWithFacebook, signInWithGithub, signInWithGoogle } from "../config/firebase";
+import { useSelector } from "react-redux";
 
 // schema fro data
 const schema = yup.object().shape({
@@ -71,8 +72,13 @@ const handleWithGithub=async()=>{
   console.log(ress);
  
 }
+
+
+const isLoggedIn = useSelector((state) => state.logged.loggedIn);
   return (
-    <div>
+    <>
+    {!isLoggedIn && (
+      <div>
       <div className="bg-[#D9D9D9]  flex justify-center items-center py-16">
         <div className="bg-white flex    px-16 py-[6.2em] gap-5   rounded-lg border-2  flex-col">
           <h1 className="text-2xl  font-medium">Log in</h1>
@@ -189,6 +195,9 @@ const handleWithGithub=async()=>{
         </div>
       </div>
     </div>
+    )}
+    </>
+    
   );
 };
 
