@@ -31,6 +31,7 @@ const About = () => {
             <div>
                 <Calendar/>
             </div>
+            
           </div>
         </div>
       </div>
