@@ -1,62 +1,132 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema;
 
-let EducationSchema = new mongoose.Schema(
-    {
-        title: {
-            type: String,
-        },
-        description: {
-            type: String,
-        },
+const EducationSchema = new mongoose.Schema(
+  {
+    school: {
+      type: String,
+      default: "",
     },
-    { timestamps: true }
-);
-
-let ExperienceSchema = new mongoose.Schema(
-    {
-        title: {
-            type: String,
-        },
-        description: {
-            type: String,
-        },
-        skills: {
-            type: String,
-        },
+    description: {
+      type: String,
+      default: "No information",
     },
-    { timestamps: true }
+  },
+  { timestamps: true }
 );
 
-let CertificationSchema = new mongoose.Schema(
-    {
-        title: {
-            type: String,
-        },
-        description: {
-            type: String,
-        },
+const ExperienceSchema = new mongoose.Schema(
+  {
+    company: {
+      type: String,
+      default: "",
     },
-    { timestamps: true }
-);
-const profileSchema = mongoose.Schema(
-    {
-        user: {
-            type: ObjectId, 
-            ref: "user", 
-            required: true,
-            unique: true
-        },
-        about: {
-            type: String
-        },
-        education: [EducationSchema],
-        certification: [CertificationSchema],
-        experience: [ExperienceSchema],
+    description: {
+      type: String,
+      default: "No information",
     },
-    { timestamps: true }
+  },
+  { timestamps: true }
 );
-  
+
+const CertificationSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: "No information",
+    },
+  },
+  { timestamps: true }
+);
+
+const InventionSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: "No information",
+    },
+  },
+  { timestamps: true }
+);
+
+const PatentSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      default: "",
+    },
+    description: {
+      type: String,
+      default: "No information",
+    },
+  },
+  { timestamps: true }
+);
+
+const AvailabilitySchema = new mongoose.Schema({
+  day: {
+    type: Number,
+  },
+  range: {
+    type: String,
+  },
+});
+
+const profileSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      unique: true,
+    },
+    profilePicture: {
+      type: String,
+      default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+    backgroundPicture: {
+      type: String,
+      default:
+        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    },
+    about: {
+      type: String,
+    },
+    education: [EducationSchema],
+    certification: [CertificationSchema],
+    experience: [ExperienceSchema],
+    tutorSkills: {
+      type: String,
+    },
+    inventions: [InventionSchema],
+    patents: [PatentSchema],
+    hourlyRates: {
+      type: Number,
+      default: 0,
+    },
+    country: {
+      type: String,
+    },
+    phoneNumber: {
+      type: String,
+      default: "No phone number",
+    },
+    openToCollaborate: {
+      type: Boolean,
+      default: false,
+    },
+    availability: [AvailabilitySchema],
+  },
+  { timestamps: true }
+);
+
 const profileModel = mongoose.model("profile", profileSchema);
 
 module.exports = profileModel;
