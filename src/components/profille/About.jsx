@@ -6,7 +6,6 @@ import { aboutActions } from "../../store/slices/aboutSlice";
 const About = () => {
   const dispatch = useDispatch();
   const aboutInitialValues = useSelector((state) => state.aboutData);
-console.log(aboutInitialValues);
   const [editDescription, setEditDescription] = useState(false);
   const [descriptionValue, setDiscription] = useState(
     aboutInitialValues.description
@@ -44,7 +43,9 @@ console.log(aboutInitialValues);
   };
 
   const isTimeSelected = (day, range) => {
-    return selectedTimes.some((time) => time.day === day && time.range === range);
+    return selectedTimes.some(
+      (time) => time.day === day && time.range === range
+    );
   };
 
   const [editCalendar, setEditCalendar] = useState(false);
@@ -54,7 +55,7 @@ console.log(aboutInitialValues);
 
   const handleSubmission = (e) => {
     e.preventDefault();
-    dispatch(aboutActions.updatedAbout({ description:descriptionValue }));
+    dispatch(aboutActions.updatedAbout({ description: descriptionValue }));
     setEditDescription(false);
   };
 
@@ -182,25 +183,23 @@ console.log(aboutInitialValues);
                   ))}
                   <div className="flex justify-center items-center mt-5 gap-72">
                     <p>In your timezone (UTC -04:00)</p>
-                    {editCalendar &&(
+                    {editCalendar && (
                       <div className="align-baseline self-end flex flex-row gap-5 ">
-                      <input
-                        type="submit"
-                        value="Save"
-                        className="px-10 bg-[#9E6F27] hover:bg-[#825E27] text-white py-1 rounded-xl hover:cursor-pointer"
-                        onClick={handleCalendarEdition}
-
-                      />
-                      <button
-                        className="px-10 hover:bg-[#EDE4CE] border-2 border-[#9E6F27] text-[#9E6F27] py-1 rounded-xl"
-                        onClick={()=>setEditCalendar(false)}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  )}
+                        <input
+                          type="submit"
+                          value="Save"
+                          className="px-10 bg-[#9E6F27] hover:bg-[#825E27] text-white py-1 rounded-xl hover:cursor-pointer"
+                          onClick={handleCalendarEdition}
+                        />
+                        <button
+                          className="px-10 hover:bg-[#EDE4CE] border-2 border-[#9E6F27] text-[#9E6F27] py-1 rounded-xl"
+                          onClick={() => setEditCalendar(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    )}
                   </div>
-                 
                 </div>
 
                 <div className="flex flex-row justify-center ">

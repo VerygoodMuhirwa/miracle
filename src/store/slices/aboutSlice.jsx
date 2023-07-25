@@ -12,7 +12,6 @@ export const aboutSlice = createSlice({
       const { description, selectedTime } = action.payload;
       state.description = description;
       state.selectedTime = selectedTime;
-      console.log(state.description);
     },
   },
 });
