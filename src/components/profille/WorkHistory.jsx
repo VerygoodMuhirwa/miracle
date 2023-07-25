@@ -33,7 +33,7 @@ const WorkHistory = () => {
             <div className="flex flex-col gap-3 items-center justify-center">
               <p className="text-xl font-bold ">100%</p>
               <p>Attendance</p>
-            </div>v
+            </div>
             <div className="flex flex-col gap-3 items-center justify-center">
               <p className="text-xl font-bold ">80%</p>
               <p>Response</p>
